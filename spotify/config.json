@@ -1,0 +1,7 @@
+{
+    "client_id": "eaa4e93ebccf4467b5c4ef3e90a835b7",
+    "client_secret": "b0d2a06694294308a8706d3f9bbea5a4",
+    "token_endpoint": "https://accounts.spotify.com/api/token",
+    "authorization": "eaa4e93ebccf4467b5c4ef3e90a835b7:b0d2a06694294308a8706d3f9bbea5a4",
+    "search_endpoint": "https://api.spotify.com/v1/search"
+}

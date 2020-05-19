@@ -1,0 +1,13 @@
+{
+  "name": "albumranker-api",
+  "version": "1.0.0",
+  "description": "API for AlbumRanker app.",
+  "main": "index.js",
+  "repository": "https://github.com/leovictorsr/albumranker-api.git",
+  "author": "Leonardo Rodrigues",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
