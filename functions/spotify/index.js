@@ -26,7 +26,8 @@ async function search_album(req, res) {
 
         data.body.albums.items.map((a) => albums.push(make_album_data(a)));
         res.send(albums);
-    });
+        return albums;
+    }).catch((err) => console.log(err));
 }
 
 async function search_artist(req, res) {
@@ -37,7 +38,8 @@ async function search_artist(req, res) {
 
         data.body.albums.items.map((a) => albums.push(make_album_data(a)));
         res.send(albums);
-    });
+        return albums;
+    }).catch((err) => console.log(err));
 }
 
 spotify.get('/album/:album', search_album);
@@ -45,6 +47,7 @@ spotify.get('/artist/:artist', search_artist);
 
 api.clientCredentialsGrant().then((data) => {
     api.setAccessToken(data.body['access_token']);
-});
+    return data.body['access_token'];
+}).catch((err) => console.log(err));
 
 module.exports = spotify;

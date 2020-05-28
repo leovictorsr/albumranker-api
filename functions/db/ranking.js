@@ -20,7 +20,8 @@ function get(req, res) {
   db.ref('ranking').orderByChild('user').equalTo(user).once('value').then((data) => {
     console.log(data.val());
     res.send(data.val());
-  });
+    return data.val();
+  }).catch((err) => console.log(err));
 }
 
 function post(req, res) {
@@ -55,7 +56,8 @@ async function get_all(req, res) {
   db.ref('ranking').once('value').then((data) => {
     console.log(data.val());
     res.send(data.val());
-  });
+    return data.val();
+  }).catch((err) => console.log(err));
 }
 
 ranking.get('/ranking', get_all);
