@@ -9,12 +9,23 @@ const api = new spotify_api({
 });
 const spotify = express.Router();
 
+function make_album_data(album) {
+    return {
+        "name": album.name,
+        "artist": album.artists[0].name,
+        "spotify_id": album.id,
+        "image_url": album.images[0].url
+    }
+}
+
 async function search_album(req, res) {
     let album = req.params.album;
 
     api.searchAlbums(album).then((data) => {
-        console.log(data.body);
-        res.send(data.body);
+        let albums = new Array();
+
+        data.body.albums.items.map((a) => albums.push(make_album_data(a)));
+        res.send(albums);
     });
 }
 
@@ -22,8 +33,10 @@ async function search_artist(req, res) {
     let artist = req.params.artist;
 
     api.searchAlbums(`artist:${artist}`).then((data) => {
-        console.log(data.body);
-        res.send(data.body);
+        let albums = new Array();
+
+        data.body.albums.items.map((a) => albums.push(make_album_data(a)));
+        res.send(albums);
     });
 }
 
