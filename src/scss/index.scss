@@ -1,0 +1,13 @@
+@import "./title";
+
+html, body { height: 100%; width: 100%; }
+
+#react-app { min-height: 100%; justify-content: space-around; }
+.wrapper { display: flex; flex-direction: column; }
+.landing { display: flex; height: 100%; align-items: stretch; flex-direction: column; justify-content: space-around;}
+.landing > .btn { color: white; font-size: 48px; }
+.card-group > .card { flex: 25% !important; max-width: 25% !important; }
+.input-group { align-items: center !important; justify-content: center !important; height: 100%;  }
+.input-group > * > .btn { color: white;  }
+.badge { display: inline-flex !important; font-size: medium !important;}
+.list-group-item { cursor: pointer; padding: 0 !important; background-color: transparent !important; border: 0 !important; margin: 6px !important; }
