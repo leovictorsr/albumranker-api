@@ -6,6 +6,7 @@ import arrayMove from "array-move";
 import Create from "../../components/Create";
 import Landing from "../../components/Landing";
 import Modal from "../../components/Modal";
+import RankingList from "../../components/RankingList";
 import ResultList from "../../components/ResultList";
 import SaveBar from "../../components/SaveBar";
 import SearchBar from "../../components/SearchBar";
@@ -28,10 +29,12 @@ class App extends React.Component {
     this.toByAlbum = this.toByAlbum.bind(this);
     this.toByArtist = this.toByArtist.bind(this);
     this.toLanding = this.toLanding.bind(this);
+    this.toList = this.toList.bind(this);
 
     this.state = {
       albums: [],
       tracks: [],
+      rankings: [],
       flow: "landing"
     }
   }
@@ -111,6 +114,22 @@ class App extends React.Component {
     });
   }
 
+  toList() {
+    let url = `${config.endpoint}/ranking`;
+    axios.get(url)
+      .then((data) => {
+        let rankings = [];
+        for (const i in data.data) {
+          rankings.push(data.data[i]);
+        }
+
+        this.setState({
+          rankings: rankings,
+          flow: "list"
+        });
+      });
+  }
+
   toLanding() {
     this.setState({
       flow: "landing",
@@ -133,7 +152,8 @@ class App extends React.Component {
     return (
       <div className="wrapper">
         <Title />
-        {this.state.flow === "landing" && <Landing toCreate={this.toCreate} />}
+        {this.state.flow === "landing" && <Landing toCreate={this.toCreate} toList={this.toList}/>}
+        {this.state.flow === "list" && <RankingList rankings={this.state.rankings} />}
         {this.state.flow === "create"
           && <Create byAlbum={this.toByAlbum} byArtist={this.toByArtist} />}
         {this.state.flow === "by-album" && <SearchBar searchBy={this.searchAlbum} text="album" />}

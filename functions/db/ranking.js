@@ -15,10 +15,8 @@ function del(req, res) {
 
 function get(req, res) {
   let user = req.params.user;
-  console.log(user);
 
   db.ref('ranking').orderByChild('user').equalTo(user).once('value').then((data) => {
-    console.log(data.val());
     res.send(data.val());
     return data.val();
   }).catch((err) => console.log(err));
@@ -54,7 +52,6 @@ function put(req, res) {
 
 async function get_all(req, res) {
   db.ref('ranking').once('value').then((data) => {
-    console.log(data.val());
     res.send(data.val());
     return data.val();
   }).catch((err) => console.log(err));
