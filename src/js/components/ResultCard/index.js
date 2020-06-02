@@ -8,7 +8,7 @@ const ResultCard = ({item, selectAlbum}) => {
             <div className="card-body">
                 <h5 className="card-title">{item.name}</h5>
                 <p className="card-text">{item.artist}</p>
-                <button onClick={(e) => selectAlbum(item, e)} className="stretched-link" />
+                <a href="#" onClick={(e) => selectAlbum(item, e)} className="stretched-link" />
             </div>
         </div>
     )
