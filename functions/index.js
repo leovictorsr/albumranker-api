@@ -1,28 +1,19 @@
-const functions = require('firebase-functions');
+const cors = require('cors');
 const express = require('express');
+const functions = require('firebase-functions');
 
 const spotify = require('./spotify');
 const ranking = require('./db/ranking');
 
 const app = express();
 
-spotify.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    next();
-});
-ranking.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    next();
-});
-
+spotify.options('*', cors());
+ranking.options('*', cors());
+app.use(cors())
+app.options('*', cors())
 
 app.use('/spotify', spotify);
 app.use('/', ranking);
-
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    next();
-});
 
 app.listen();
 

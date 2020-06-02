@@ -28,10 +28,10 @@ function post(req, res) {
   let r = db.ref('ranking').push();
 
   r.set({
-    artist: req.body.artist,
+    artists: req.body.artists,
     album: req.body.album,
     user: req.body.user,
-    songs: req.body.songs,
+    tracks: req.body.tracks,
     date: Date.now()
   });
 
@@ -42,10 +42,10 @@ function put(req, res) {
   db.ref('ranking')
     .orderByChild('user').equalTo(req.body.user)
     .set({
-      artist: req.body.artist,
+      artists: req.body.artists,
       album: req.body.album,
       user: req.body.user,
-      songs: req.body.songs,
+      tracks: req.body.tracks,
       date: Date.now()
     });
 
