@@ -36,24 +36,24 @@ class App extends React.Component {
     }
   }
 
-  saveRanking() {
+  async saveRanking() {
     let handle = $(".handle-input").val();
     let tracks = this.state.tracks.map((item, index) => {
       return ({
         name: item.name,
-        duration: item.duration_formatted,
+        duration: item.duration,
         track_number: item.track_number,
         order: index + 1
       });
     });
     let ranking = {
-      tracks: tracks,
+      artists: this.state.albums[0].artists,
       album: this.state.albums[0].name,
-      artist: this.state.albums[0].artist,
-      handle: handle
+      tracks: tracks,
+      user: handle
     };
     if (handle) {
-      axios.post("/ranking", ranking)
+      axios.post(`${config.endpoint}/ranking`, ranking)
         .then(res => {
           this.setState({
             flow: "saved",
@@ -75,29 +75,28 @@ class App extends React.Component {
   async search(type) {
     let q = $(".search-input").val();
     let url = `${config.endpoint}/spotify/${type}/${q}`;
-    let headers = {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'},
-    };
     if (q) {
-      const result = await fetch(url, headers);
-      const albums = await result.json();
-      this.setState({
-        albums: albums,
-        tracks: [],
-        flow: "search-result"
-      });
+      axios.get(url)
+        .then(res => {
+          this.setState({
+            albums: res.data,
+            tracks: [],
+            flow: "search-result"
+          });
+        });
     }
   }
 
-  selectAlbum(item) {
-    this.setState({
-      albums: [item],
-      tracks: item.tracks,
-      flow: "creating-ranking"
-    });
-
+  async selectAlbum(item) {
+    let url = `${config.endpoint}/spotify/fullalbum/${item.spotify_id}`;
+    axios.get(url)
+      .then(res => {
+        this.setState({
+          albums: [res.data],
+          tracks: res.data.tracks,
+          flow: "creating-ranking"
+        });
+      })
   }
 
   onSortEnd(ev) {

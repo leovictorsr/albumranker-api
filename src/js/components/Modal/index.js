@@ -2,7 +2,7 @@ import React from "react";
 
 const Modal = ({text, toLanding}) => {
     return (
-        <div className="modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div className="modal" tabIndex="-1" role="dialog">
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     <div className="modal-body">
