@@ -5,7 +5,6 @@ import arrayMove from "array-move";
 
 import Create from "../../components/Create";
 import Landing from "../../components/Landing";
-import Modal from "../../components/Modal";
 import RankingList from "../../components/RankingList";
 import ResultList from "../../components/ResultList";
 import SaveBar from "../../components/SaveBar";
@@ -59,7 +58,8 @@ class App extends React.Component {
       axios.post(`${config.endpoint}/ranking`, ranking)
         .then(res => {
           this.setState({
-            flow: "saved",
+            rankings: [ranking],
+            flow: "list",
           })
         })
         .catch(err => console.log(err));
@@ -161,7 +161,6 @@ class App extends React.Component {
         {this.state.flow === "search-result" && <ResultList albums={this.state.albums} selectAlbum={this.selectAlbum} />}
         {this.state.flow === "creating-ranking" && <SaveBar saveRanking={this.saveRanking} />}
         {this.state.flow === "creating-ranking" && <TrackList tracks={this.state.tracks} onSortEnd={this.onSortEnd} />}
-        {this.state.flow === "saved" && <Modal text="Ranking saved succesfully!" toLanding={this.toLanding} />}
       </div>
     )
   }
